@@ -25,13 +25,13 @@
 
 <body>
 <p style="text-align:center">
-Susceptible-Infected-Recovered (SIR) model: "flattening the curve"
+Susceptible-Infected-Recovered (SIR) model of an epidemic: "Flattening the Curve"
 </p>
 <p style="text-align:center">
   Model is based on the SIR model presented in "Modeling the Environment" by Andrew Ford
 </p>
 <p style="text-align:center">
-  Implementation by: Alexander Brown, PhD.
+  Implementation by: Alexander Brown, PhD. for modeling discussions in ES103: Systems 1 and ME352: Dynamics of Physical Systems
 </p>
 <p style="text-align:center">
   Department of Mechanical Engineering; Lafayette College, Easton, PA 18017
@@ -43,14 +43,15 @@ Susceptible-Infected-Recovered (SIR) model: "flattening the curve"
         <canvas id="canvas"></canvas>
     </div>
 
-    <p style="text-align:center">
-    Contacts per day per infected person (before quarantine)
+
+    <div style="position:relative; margin:auto; width:60%; border:1px solid black;" class="text-center"  >
+      <p style="text-align:center">
+      Contacts per day per infected person (before quarantine)
     </p>
-    <div style="position:relative; margin:auto; width:60%" class="text-center">
        <span style="position:absolute; color:black; border:0px solid blue; min-width:100px;">
        <span id="contacts"></span>
        </span>
-       <input type="range" id="contactSlider" max="15" min="0" value="6" style="width:80%">
+       <input type="range" id="contactSlider" max="15" min="0" value="6" style="width:100%">
      </div>
      <script type="text/javascript" charset="utf-8">
      var myRange1 = document.getElementById('contactSlider');
@@ -60,7 +61,7 @@ Susceptible-Infected-Recovered (SIR) model: "flattening the curve"
      var px1 =  ((myRange1.valueAsNumber - parseInt(myRange1.min)) * off1) - (myValue1.offsetParent.offsetWidth / 2);
 
      myValue1.parentElement.style.left = px1 + 'px';
-     myValue1.parentElement.style.top = myRange1.offsetHeight + 'px';
+     myValue1.parentElement.style.top = 1.75*myRange1.offsetHeight + 'px';
      myValue1.innerHTML = myRange1.value + ' ' + myUnits1;
 
      myRange1.oninput =function(){
@@ -70,14 +71,15 @@ Susceptible-Infected-Recovered (SIR) model: "flattening the curve"
      };
      </script>
 
-     <p style="text-align:center">
-     Fraction of dangerous contacts resulting in infection:
-     </p>
-     <div style="position:relative; margin:auto; width:60%" class="text-center">
+
+     <div style="position:relative; margin:auto; width:60%;  border:1px solid black;" class="text-center" border = "thin solid #0000FF">
+       <p style="text-align:center">
+       Fraction of dangerous contacts resulting in infection:
+       </p>
         <span style="position:absolute; color:black; border:0px solid blue; min-width:100px;">
         <span id="infectivity"></span>
         </span>
-        <input type="range" id="infectivitySlider" max=".9" min="0.01" step = ".01" value=".1" style="width:80%">
+        <input type="range" id="infectivitySlider" max=".9" min="0.01" step = ".01" value=".1" style="width:100%">
       </div>
 
       <script type="text/javascript" charset="utf-8">
@@ -88,7 +90,7 @@ Susceptible-Infected-Recovered (SIR) model: "flattening the curve"
      var px2 =  ((myRange2.valueAsNumber - parseFloat(myRange2.min)) * off2) - (myValue2.offsetParent.offsetWidth / 2);
 
       myValue2.parentElement.style.left = px2 + 'px';
-      myValue2.parentElement.style.top = myRange2.offsetHeight + 'px';
+      myValue2.parentElement.style.top = 1.75*myRange2.offsetHeight + 'px';
       myValue2.innerHTML = myRange2.value + ' ' + myUnits2;
 
       myRange2.oninput =function(){
@@ -99,14 +101,14 @@ Susceptible-Infected-Recovered (SIR) model: "flattening the curve"
       </script>
 
 
-      <p style="text-align:center">
-      Duration for which the infected are both infected and contagious.
-      </p>
-      <div style="position:relative; margin:auto; width:60%" class="text-center">
+      <div style="position:relative; margin:auto; width:60%;  border:1px solid black;" class="text-center"  border = "thin solid #0000FF">
+        <p style="text-align:center">
+        Duration for which the infected are both infected and contagious.
+        </p>
          <span style="position:absolute; color:black; border:0px solid blue; min-width:100px;">
          <span id="duration"></span>
          </span>
-         <input type="range" id="durationSlider" max="21" min="1" step = "1" value="14" style="width:80%">
+         <input type="range" id="durationSlider" max="21" min="1" step = "1" value="14" style="width:100%">
        </div>
 
        <script type="text/javascript" charset="utf-8">
@@ -117,7 +119,7 @@ Susceptible-Infected-Recovered (SIR) model: "flattening the curve"
       var px3 =  ((myRange3.valueAsNumber - parseFloat(myRange3.min)) * off3) - (myValue3.offsetParent.offsetWidth / 2);
 
        myValue3.parentElement.style.left = px3 + 'px';
-       myValue3.parentElement.style.top = myRange3.offsetHeight + 'px';
+       myValue3.parentElement.style.top = 1.75*myRange3.offsetHeight + 'px';
        myValue3.innerHTML = myRange3.value + ' ' + myUnits3;
 
        myRange3.oninput =function(){
@@ -129,14 +131,15 @@ Susceptible-Infected-Recovered (SIR) model: "flattening the curve"
 
 
 
-              <p style="text-align:center">
-              Days after first case until Intervention (social distancing/quarantine)
-              </p>
-              <div style="position:relative; margin:auto; width:60%" class="text-center">
+
+              <div style="position:relative; margin:auto; width:60%;  border:1px solid black;" class="text-center" border = "thick solid #0000FF">
+                <p style="text-align:center">
+                Days after first case until Intervention (social distancing/quarantine)
+                </p>
                  <span style="position:absolute; color:black; border:0px solid blue; min-width:100px;">
                  <span id="interventionday"></span>
                  </span>
-                 <input type="range" id="interventiondaySlider" max="30" min="1" step = "1" value="7" style="width:80%">
+                 <input type="range" id="interventiondaySlider" max="30" min="1" step = "1" value="7" style="width:100%">
                </div>
 
                <script type="text/javascript" charset="utf-8">
@@ -147,7 +150,7 @@ Susceptible-Infected-Recovered (SIR) model: "flattening the curve"
              var px4 =  ((myRange4.valueAsNumber - parseInt(myRange4.min)) * off4) - (myValue4.offsetParent.offsetWidth / 2);
 
                myValue4.parentElement.style.left = px4 + 'px';
-               myValue4.parentElement.style.top = myRange4.offsetHeight + 'px';
+               myValue4.parentElement.style.top = 1.75*myRange4.offsetHeight + 'px';
                myValue4.innerHTML = myRange4.value + ' ' + myUnits4;
 
                myRange4.oninput =function(){
@@ -157,14 +160,16 @@ Susceptible-Infected-Recovered (SIR) model: "flattening the curve"
                };
                </script>
 
-               <p style="text-align:center">
-               Intervention cuts both contacts/day and transmissibility by this percent:
-               </p>
-               <div style="position:relative; margin:auto; width:60%" class="text-center">
+
+
+               <div style="position:relative; margin:auto; width:60%;  border:1px solid black;" class="text-center" border = "thin solid #0000FF">
+                 <p style="text-align:center">
+                 Intervention cuts both contacts/day and transmissibility by this percent:
+                 </p>
                   <span style="position:absolute; color:black; border:0px solid blue; min-width:100px;">
                   <span id="interventionrate"></span>
                   </span>
-                  <input type="range" id="interventionrateSlider" max="100" min="0" step = "1" value="50" style="width:80%">
+                  <input type="range" id="interventionrateSlider" max="100" min="0" step = "1" value="50" style="width:100%">
                 </div>
 
                 <script type="text/javascript" charset="utf-8">
@@ -175,7 +180,7 @@ Susceptible-Infected-Recovered (SIR) model: "flattening the curve"
               var px5 =  ((myRange5.valueAsNumber - parseInt(myRange5.min)) * off5) - (myValue5.offsetParent.offsetWidth / 2);
 
                 myValue5.parentElement.style.left = px5 + 'px';
-                myValue5.parentElement.style.top = myRange5.offsetHeight + 'px';
+                myValue5.parentElement.style.top = 1.75*myRange5.offsetHeight + 'px';
                 myValue5.innerHTML = myRange5.value + ' ' + myUnits5;
 
                 myRange5.oninput =function(){
@@ -185,29 +190,15 @@ Susceptible-Infected-Recovered (SIR) model: "flattening the curve"
                 };
                 </script>
 
-    <!-- <p>
-    Contacts per day per infected person before quarantine:
-    <input id="contactSlider" type="range" min="1" max="15" value="5" class="slider" >
-    </p> -->
-    <!-- <p>
-    Fraction of dangerous contacts resulting in infection:
-    <input id="infectivitySlider" type="range" min="0" max="1.0" value="0.1" step="0.01" class="slider" >
-    </p> -->
-    <!-- <p>
-    Average duration before recovery:
-    <input id="durationSlider" type="range" min="1" max="21" value="14" class="slider" >
-    </p> -->
-    <!-- <p>
-    Quarantine occurs this many days after first case:
-    <input id="interventiondaySlider" type="range" min="1" max="30" value="50" class="slider" >
-    </p> -->
-    <!-- <p>
-    Quarantine cuts contacts by this percentage:
-    <input id="interventionrateSlider" type="range" min="0" max="100" value="50" class="slider" >
-    </p> -->
-
-
+<p style="text-align:center">
+    <!-- hitwebcounter Code START -->
+    Visitors:
+    <a href="https://www.hitwebcounter.com" target="_blank">
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7208758&style=0006&nbdigits=5&type=page&initCount=0" title="User Stats" Alt="webcounterwebsite"   border="0" >
+    </a>
+<p>
     <script src="sir.js"></script>
+
 </body>
 
 </html>
