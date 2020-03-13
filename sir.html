@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SIR epidemic model</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="utils.js"></script>
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    <style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+    </style>
+</head>
+
+<body>
+<p style="text-align:center">
+Susceptible-Infected-Recovery (SIR) model: "flattening the curve" 
+</p>
+    <div style="width:75%">
+        <canvas id="canvas"></canvas>
+    </div>
+    <p>
+    Contacts per day per infected person before quarantine:
+    <input id="contactSlider" type="range" min="100" max="1000" value="50" class="slider" >
+    </p>
+    <p>
+    Percent of dangerous contacts resulting in infection:
+    <input id="infectivitySlider" type="range" min="1" max="100" value="50" class="slider" >
+    </p>
+    <p>
+    average duration before recovery:
+    <input id="durationSlider" type="range" min="1" max="100" value="50" class="slider" >
+    </p>
+    <p>
+    Quarantine occurs this many days after first case:
+    <input id="interventiondaySlider" type="range" min="1" max="30" value="50" class="slider" >
+    </p>
+    <p>
+    Quarantine cuts contacts by this percentage:
+    <input id="interventionrateSlider" type="range" min="0" max="100" value="50" class="slider" >
+    </p>
+
+
+    <script src="sir.js"></script>
+</body>
+
+</html>
