@@ -30,7 +30,7 @@ function runSIRref(){
   //set up simulation
   Sref = [];
   Iref = [];
-  Sref = [];
+  Rref = [];
   Sref.push(pop);
   Iref.push(1);
   Rref.push(0);
@@ -62,7 +62,7 @@ function runSIR(){
   //set up simulation
   S = [];
   I = [];
-  S = [];
+  R = [];
   S.push(pop);
   I.push(1);
   R.push(0);
