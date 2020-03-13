@@ -9,41 +9,190 @@
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
     <style>
+    .text-center{
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+}
     canvas {
         -moz-user-select: none;
         -webkit-user-select: none;
         -ms-user-select: none;
+
     }
     </style>
 </head>
 
 <body>
 <p style="text-align:center">
-Susceptible-Infected-Recovery (SIR) model: "flattening the curve" 
+Susceptible-Infected-Recovered (SIR) model: "flattening the curve"
 </p>
-    <div style="width:75%">
+    <div style="width:40%" class="text-center">
         <canvas id="canvas"></canvas>
     </div>
-    <p>
+
+    <p style="text-align:center">
+    Contacts per day per infected person (before quarantine)
+    </p>
+    <div style="position:relative; margin:auto; width:60%" class="text-center">
+       <span style="position:absolute; color:black; border:0px solid blue; min-width:100px;">
+       <span id="contacts"></span>
+       </span>
+       <input type="range" id="contactSlider" max="15" min="0" value="6" style="width:80%">
+     </div>
+     <script type="text/javascript" charset="utf-8">
+     var myRange1 = document.getElementById('contactSlider');
+     var myValue1 = document.getElementById('contacts');
+     var myUnits1 = 'contacts';
+     var off1 = myRange1.offsetWidth / (parseInt(myRange1.max) - parseInt(myRange1.min));
+     var px1 =  ((myRange1.valueAsNumber - parseInt(myRange1.min)) * off1) - (myValue1.offsetParent.offsetWidth / 2);
+
+     myValue1.parentElement.style.left = px1 + 'px';
+     myValue1.parentElement.style.top = myRange1.offsetHeight + 'px';
+     myValue1.innerHTML = myRange1.value + ' ' + myUnits1;
+
+     myRange1.oninput =function(){
+       let px1 = ((myRange1.valueAsNumber - parseInt(myRange1.min)) * off1) - (myValue1.offsetWidth / 2);
+       myValue1.innerHTML = myRange1.value + ' ' + myUnits1;
+       myValue1.parentElement.style.left = px1 + 'px';
+     };
+     </script>
+
+     <p style="text-align:center">
+     Fraction of dangerous contacts resulting in infection:
+     </p>
+     <div style="position:relative; margin:auto; width:60%" class="text-center">
+        <span style="position:absolute; color:black; border:0px solid blue; min-width:100px;">
+        <span id="infectivity"></span>
+        </span>
+        <input type="range" id="infectivitySlider" max=".9" min="0.01" step = ".01" value=".1" style="width:80%">
+      </div>
+
+      <script type="text/javascript" charset="utf-8">
+     var myRange2 = document.getElementById('infectivitySlider');
+     var myValue2 = document.getElementById('infectivity');
+     var myUnits2 = 'infections/contacts';
+     var off2 = myRange2.offsetWidth / (parseFloat(myRange2.max) - parseFloat(myRange2.min));
+     var px2 =  ((myRange2.valueAsNumber - parseFloat(myRange2.min)) * off2) - (myValue2.offsetParent.offsetWidth / 2);
+
+      myValue2.parentElement.style.left = px2 + 'px';
+      myValue2.parentElement.style.top = myRange2.offsetHeight + 'px';
+      myValue2.innerHTML = myRange2.value + ' ' + myUnits2;
+
+      myRange2.oninput =function(){
+        let px2 = ((myRange2.valueAsNumber - parseFloat(myRange2.min)) * off2) - (myValue2.offsetWidth / 2);
+        myValue2.innerHTML = myRange2.value + ' ' + myUnits2;
+        myValue2.parentElement.style.left = px2 + 'px';
+      };
+      </script>
+
+
+      <p style="text-align:center">
+      Duration for which the infected are both infected and contagious.
+      </p>
+      <div style="position:relative; margin:auto; width:60%" class="text-center">
+         <span style="position:absolute; color:black; border:0px solid blue; min-width:100px;">
+         <span id="duration"></span>
+         </span>
+         <input type="range" id="durationSlider" max="21" min="1" step = "1" value="14" style="width:80%">
+       </div>
+
+       <script type="text/javascript" charset="utf-8">
+      var myRange3 = document.getElementById('durationSlider');
+      var myValue3 = document.getElementById('duration');
+      var myUnits3 = 'days';
+      var off3 = myRange3.offsetWidth / (parseFloat(myRange3.max) - parseFloat(myRange3.min));
+      var px3 =  ((myRange3.valueAsNumber - parseFloat(myRange3.min)) * off3) - (myValue3.offsetParent.offsetWidth / 2);
+
+       myValue3.parentElement.style.left = px3 + 'px';
+       myValue3.parentElement.style.top = myRange3.offsetHeight + 'px';
+       myValue3.innerHTML = myRange3.value + ' ' + myUnits3;
+
+       myRange3.oninput =function(){
+         let px3 = ((myRange3.valueAsNumber - parseFloat(myRange3.min)) * off3) - (myValue3.offsetWidth / 2);
+         myValue3.innerHTML = myRange3.value + ' ' + myUnits3;
+         myValue3.parentElement.style.left = px3 + 'px';
+       };
+       </script>
+
+
+
+              <p style="text-align:center">
+              Days after first case until Intervention (social distancing/quarantine)
+              </p>
+              <div style="position:relative; margin:auto; width:60%" class="text-center">
+                 <span style="position:absolute; color:black; border:0px solid blue; min-width:100px;">
+                 <span id="interventionday"></span>
+                 </span>
+                 <input type="range" id="interventiondaySlider" max="30" min="1" step = "1" value="7" style="width:80%">
+               </div>
+
+               <script type="text/javascript" charset="utf-8">
+             var myRange4 = document.querySelector('#interventiondaySlider');
+             var myValue4 = document.querySelector('#interventionday');
+             var myUnits4 = 'days';
+             var off4 = myRange4.offsetWidth / (parseInt(myRange4.max) - parseInt(myRange4.min));
+             var px4 =  ((myRange4.valueAsNumber - parseInt(myRange4.min)) * off4) - (myValue4.offsetParent.offsetWidth / 2);
+
+               myValue4.parentElement.style.left = px4 + 'px';
+               myValue4.parentElement.style.top = myRange4.offsetHeight + 'px';
+               myValue4.innerHTML = myRange4.value + ' ' + myUnits4;
+
+               myRange4.oninput =function(){
+                 let px4 = ((myRange4.valueAsNumber - parseInt(myRange4.min)) * off4) - (myValue4.offsetWidth / 2);
+                 myValue4.innerHTML = myRange4.value + ' ' + myUnits4;
+                 myValue4.parentElement.style.left = px4 + 'px';
+               };
+               </script>
+
+               <p style="text-align:center">
+               Intervention cuts both contacts/day and transmissibility by this percent:
+               </p>
+               <div style="position:relative; margin:auto; width:60%" class="text-center">
+                  <span style="position:absolute; color:black; border:0px solid blue; min-width:100px;">
+                  <span id="interventionrate"></span>
+                  </span>
+                  <input type="range" id="interventionrateSlider" max="100" min="0" step = "1" value="50" style="width:80%">
+                </div>
+
+                <script type="text/javascript" charset="utf-8">
+              var myRange5 = document.getElementById('interventionrateSlider');
+              var myValue5 = document.getElementById('interventionrate');
+              var myUnits5 = 'percent';
+              var off5 = myRange5.offsetWidth / (parseInt(myRange5.max) - parseInt(myRange5.min));
+              var px5 =  ((myRange5.valueAsNumber - parseInt(myRange5.min)) * off5) - (myValue5.offsetParent.offsetWidth / 2);
+
+                myValue5.parentElement.style.left = px5 + 'px';
+                myValue5.parentElement.style.top = myRange5.offsetHeight + 'px';
+                myValue5.innerHTML = myRange5.value + ' ' + myUnits5;
+
+                myRange5.oninput =function(){
+                  let px5 = ((myRange5.valueAsNumber - parseInt(myRange5.min)) * off5) - (myValue5.offsetWidth / 2);
+                  myValue5.innerHTML = myRange5.value + ' ' + myUnits5;
+                  myValue5.parentElement.style.left = px5 + 'px';
+                };
+                </script>
+
+    <!-- <p>
     Contacts per day per infected person before quarantine:
-    <input id="contactSlider" type="range" min="100" max="1000" value="50" class="slider" >
-    </p>
-    <p>
-    Percent of dangerous contacts resulting in infection:
-    <input id="infectivitySlider" type="range" min="1" max="100" value="50" class="slider" >
-    </p>
-    <p>
-    average duration before recovery:
-    <input id="durationSlider" type="range" min="1" max="100" value="50" class="slider" >
-    </p>
-    <p>
+    <input id="contactSlider" type="range" min="1" max="15" value="5" class="slider" >
+    </p> -->
+    <!-- <p>
+    Fraction of dangerous contacts resulting in infection:
+    <input id="infectivitySlider" type="range" min="0" max="1.0" value="0.1" step="0.01" class="slider" >
+    </p> -->
+    <!-- <p>
+    Average duration before recovery:
+    <input id="durationSlider" type="range" min="1" max="21" value="14" class="slider" >
+    </p> -->
+    <!-- <p>
     Quarantine occurs this many days after first case:
     <input id="interventiondaySlider" type="range" min="1" max="30" value="50" class="slider" >
-    </p>
-    <p>
+    </p> -->
+    <!-- <p>
     Quarantine cuts contacts by this percentage:
     <input id="interventionrateSlider" type="range" min="0" max="100" value="50" class="slider" >
-    </p>
+    </p> -->
 
 
     <script src="sir.js"></script>
